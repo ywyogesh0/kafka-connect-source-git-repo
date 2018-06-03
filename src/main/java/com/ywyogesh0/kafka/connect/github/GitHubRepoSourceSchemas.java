@@ -53,7 +53,7 @@ public class GitHubRepoSourceSchemas {
     public static Schema REPO_SCHEMA = SchemaBuilder.struct().name(REPO_SCHEMA_VALUE)
             .version(1)
 
-            .field(ID_FIELD, Schema.STRING_SCHEMA)
+            .field(ID_FIELD, Schema.INT32_SCHEMA)
             .field(NAME_FIELD, Schema.STRING_SCHEMA)
             .field(FULL_NAME_FIELD, Schema.STRING_SCHEMA)
             .field(DESCRIPTION_FIELD, Schema.STRING_SCHEMA)

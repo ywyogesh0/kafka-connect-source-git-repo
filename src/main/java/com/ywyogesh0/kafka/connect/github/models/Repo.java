@@ -113,7 +113,10 @@ public class Repo {
         repo.setId(jsonObject.getInt(ID_FIELD));
         repo.setName(jsonObject.getString(NAME_FIELD));
         repo.setFullName(jsonObject.getString(FULL_NAME_FIELD));
-        repo.setDescription(jsonObject.getString(DESCRIPTION_FIELD));
+
+        Object desc = jsonObject.get(DESCRIPTION_FIELD);
+        repo.setDescription(!jsonObject.NULL.equals(desc) ? (String) desc : "");
+
         repo.setUrl(jsonObject.getString(URL_FIELD));
         repo.setHtmlUrl(jsonObject.getString(HTML_URL_FIELD));
 

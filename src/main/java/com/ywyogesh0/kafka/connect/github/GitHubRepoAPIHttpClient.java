@@ -6,11 +6,20 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.GetRequest;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.SSLContexts;
 import org.apache.kafka.connect.errors.ConnectException;
 import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.net.ssl.SSLContext;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -41,12 +50,12 @@ public class GitHubRepoAPIHttpClient {
         this.config = config;
     }
 
-    protected JSONArray getNextIssues(Integer page) throws InterruptedException {
+    protected JSONArray getNextIssues(Integer page, Instant since) throws InterruptedException {
 
         HttpResponse<JsonNode> jsonResponse;
 
         try {
-            jsonResponse = getNextIssuesAPI(page);
+            jsonResponse = getNextIssuesAPI(page, since);
 
             // Deal with headers in any case
             Headers headers = jsonResponse.getHeaders();
@@ -77,10 +86,10 @@ public class GitHubRepoAPIHttpClient {
                     log.info(String.format("Sleeping for %s seconds...", sleepTime));
                     Thread.sleep(1000 * sleepTime);
 
-                    return getNextIssues(page);
+                    return getNextIssues(page, since);
 
                 default:
-                    log.error(constructUrl(page));
+                    log.error(constructUrl(page, since));
                     log.error(String.valueOf(jsonResponse.getStatus()));
                     log.error(jsonResponse.getBody().toString());
                     log.error(jsonResponse.getHeaders().toString());
@@ -88,9 +97,9 @@ public class GitHubRepoAPIHttpClient {
                             "before re-trying...");
 
                     Thread.sleep(5000);
-                    return getNextIssues(page);
+                    return getNextIssues(page, since);
             }
-        } catch (UnirestException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Thread.sleep(5000L);
 
@@ -98,8 +107,8 @@ public class GitHubRepoAPIHttpClient {
         }
     }
 
-    protected HttpResponse<JsonNode> getNextIssuesAPI(Integer page) throws UnirestException {
-        GetRequest uniRest = Unirest.get(constructUrl(page));
+    protected HttpResponse<JsonNode> getNextIssuesAPI(Integer page, Instant since) throws UnirestException {
+        GetRequest uniRest = Unirest.get(constructUrl(page, since));
 
         if (!config.getAuthUsernameConfig().isEmpty() && !config.getAuthPasswordConfig().isEmpty()) {
             uniRest = uniRest.basicAuth(config.getAuthUsernameConfig(), config.getAuthPasswordConfig());
@@ -109,12 +118,19 @@ public class GitHubRepoAPIHttpClient {
         return uniRest.asJson();
     }
 
-    protected String constructUrl(Integer page) {
-        return String.format(
+    protected String constructUrl(Integer page, Instant since) {
+
+        String apiURL = String.format(
                 API_URL,
                 config.getUserConfig(),
                 page,
                 config.getBatchSizeConfig());
+
+        if (since != null) {
+            apiURL = apiURL.concat("&since=" + since);
+        }
+
+        return apiURL;
     }
 
     public void sleep() throws InterruptedException {
