@@ -57,7 +57,6 @@ public class GitHubRepoSourceSchemas {
             .field(NAME_FIELD, Schema.STRING_SCHEMA)
             .field(FULL_NAME_FIELD, Schema.STRING_SCHEMA)
             .field(DESCRIPTION_FIELD, Schema.STRING_SCHEMA)
-            .field(NAME_FIELD, Schema.STRING_SCHEMA)
             .field(URL_FIELD, Schema.STRING_SCHEMA)
             .field(HTML_URL_FIELD, Schema.STRING_SCHEMA)
 
