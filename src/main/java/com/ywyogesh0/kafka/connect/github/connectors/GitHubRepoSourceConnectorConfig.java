@@ -41,7 +41,7 @@ public class GitHubRepoSourceConnectorConfig extends AbstractConfig {
                 .define(BATCH_SIZE_CONFIG, Type.INT, 5, new BatchSizeValidator(),
                         Importance.LOW, BATCH_SIZE_CONFIG_DOC)
                 .define(AUTH_USERNAME_CONFIG, Type.STRING, "", Importance.LOW, AUTH_USERNAME_CONFIG_DOC)
-                .define(AUTH_PASSWORD_CONFIG, Type.STRING, "", Importance.LOW, AUTH_PASSWORD_CONFIG_DOC);
+                .define(AUTH_PASSWORD_CONFIG, Type.PASSWORD, "", Importance.LOW, AUTH_PASSWORD_CONFIG_DOC);
     }
 
     public String getTopicConfig() {

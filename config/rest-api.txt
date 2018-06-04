@@ -30,3 +30,5 @@ curl -s -X POST -H "Content-Type: application/json" --data '{"name": "<name>", "
 
 # 10) Update Connector configuration
 curl -s -X PUT -H "Content-Type: application/json" --data '{"connector.class":"org.apache.kafka.connect.file.FileStreamSourceConnector","key.converter.schemas.enable":"true","file":"demo-file.txt","tasks.max":"2","value.converter.schemas.enable":"true","name":"<name>","topic":"demo-2-distributed","value.converter":"org.apache.kafka.connect.json.JsonConverter","key.converter":"org.apache.kafka.connect.json.JsonConverter"}' 127.0.0.1:8083/connectors/<name>/config | jq
+
+curl -d "@/home/yogesh/kafka/connectors/github-repo.json" -s -X POST -H "Content-Type: application/json" http://127.0.0.1:8083/connectors | jq

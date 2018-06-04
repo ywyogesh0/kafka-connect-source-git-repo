@@ -1,0 +1,14 @@
+{
+  "name":"github-repo-distributed",
+  "config":{
+    "name":"github-repo-distributed",
+    "connector.class":"com.ywyogesh0.kafka.connect.github.connectors.GitHubRepoSourceConnector",
+    "topic.name":"github-repo-1-d",
+    "github.user":"ywyogesh0",
+    "tasks.max":1,
+    "key.converter.schemas.enable":"true",
+    "value.converter.schemas.enable":"true",
+    "value.converter":"org.apache.kafka.connect.json.JsonConverter",
+    "key.converter":"org.apache.kafka.connect.json.JsonConverter"
+  }
+}
