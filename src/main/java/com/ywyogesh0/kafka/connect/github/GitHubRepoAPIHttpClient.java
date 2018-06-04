@@ -130,13 +130,14 @@ public class GitHubRepoAPIHttpClient {
             apiURL = apiURL.concat("&since=" + since);
         }
 
+        log.info("API URL = " + apiURL);
         return apiURL;
     }
 
     public void sleep() throws InterruptedException {
         long sleepTime = (long) Math.ceil(
                 (double) (XRateReset - Instant.now().getEpochSecond()) / XRateRemaining);
-        log.debug(String.format("Sleeping for %s seconds", sleepTime));
+        log.info(String.format("Sleeping for %s seconds", sleepTime));
         Thread.sleep(1000 * sleepTime);
     }
 
