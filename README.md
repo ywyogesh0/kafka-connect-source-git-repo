@@ -1,7 +1,25 @@
-Welcome to your new Kafka Connect connector!
+Welcome to your New Kafka-Connect Source connector!!!
+
+Project Skeleton was taken from below github project:
+https://github.com/jcustenborder/kafka-connect-archtype
 
 # Running in development
 
+# Standalone Mode
+
+1. Put the JAR or Folder in plug-in path or classpath.
+2. Start the Connector using below command :
+
+connect-standalone config/worker.properties config/GitHubRepoSourceConnector.properties
+
+# Distributed Mode
+
+1. Put the JAR or Folder in plug-in path or classpath.
+2. Use REST API for Launching a connector instance by submitting the Connector Configuration (see config/rest-api.txt)
+
+...
+
+# Docker
 
 The [docker-compose.yml](docker-compose.yml) that is included in this repository is based on the Confluent Platform Docker
 images. Take a look at the [quickstart](http://docs.confluent.io/3.0.1/cp-docker-images/docs/quickstart.html#getting-started-with-docker-client)
