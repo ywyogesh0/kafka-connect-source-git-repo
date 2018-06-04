@@ -1,9 +1,11 @@
-package com.ywyogesh0.kafka.connect.github;
+package com.ywyogesh0.kafka.connect.github.connectors;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.ywyogesh0.kafka.connect.github.tasks.GitHubRepoSourceTask;
+import com.ywyogesh0.kafka.connect.github.versions.VersionUtil;
 import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.connect.connector.Task;
 import org.apache.kafka.connect.source.SourceConnector;

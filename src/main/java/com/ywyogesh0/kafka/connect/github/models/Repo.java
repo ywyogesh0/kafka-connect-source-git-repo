@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 import java.time.Instant;
 
-import static com.ywyogesh0.kafka.connect.github.GitHubRepoSourceSchemas.*;
+import static com.ywyogesh0.kafka.connect.github.schemas.GitHubRepoSourceSchemas.*;
 
 public class Repo {
 

@@ -1,4 +1,4 @@
-package com.ywyogesh0.kafka.connect.github;
+package com.ywyogesh0.kafka.connect.github.clients;
 
 import com.mashape.unirest.http.Headers;
 import com.mashape.unirest.http.HttpResponse;
@@ -6,20 +6,12 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.GetRequest;
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.ssl.SSLContexts;
+import com.ywyogesh0.kafka.connect.github.connectors.GitHubRepoSourceConnectorConfig;
 import org.apache.kafka.connect.errors.ConnectException;
 import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.net.ssl.SSLContext;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -50,7 +42,7 @@ public class GitHubRepoAPIHttpClient {
         this.config = config;
     }
 
-    protected JSONArray getNextIssues(Integer page, Instant since) throws InterruptedException {
+    public JSONArray getNextIssues(Integer page, Instant since) throws InterruptedException {
 
         HttpResponse<JsonNode> jsonResponse;
 
@@ -107,7 +99,7 @@ public class GitHubRepoAPIHttpClient {
         }
     }
 
-    protected HttpResponse<JsonNode> getNextIssuesAPI(Integer page, Instant since) throws UnirestException {
+    public HttpResponse<JsonNode> getNextIssuesAPI(Integer page, Instant since) throws UnirestException {
         GetRequest uniRest = Unirest.get(constructUrl(page, since));
 
         if (!config.getAuthUsernameConfig().isEmpty() && !config.getAuthPasswordConfig().isEmpty()) {
@@ -118,7 +110,7 @@ public class GitHubRepoAPIHttpClient {
         return uniRest.asJson();
     }
 
-    protected String constructUrl(Integer page, Instant since) {
+    public String constructUrl(Integer page, Instant since) {
 
         String apiURL = String.format(
                 API_URL,

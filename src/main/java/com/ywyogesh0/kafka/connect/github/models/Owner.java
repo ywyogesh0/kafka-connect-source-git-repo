@@ -2,7 +2,7 @@ package com.ywyogesh0.kafka.connect.github.models;
 
 import org.json.JSONObject;
 
-import static com.ywyogesh0.kafka.connect.github.GitHubRepoSourceSchemas.*;
+import static com.ywyogesh0.kafka.connect.github.schemas.GitHubRepoSourceSchemas.*;
 
 public class Owner {
 

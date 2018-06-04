@@ -1,4 +1,4 @@
-package com.ywyogesh0.kafka.connect.github;
+package com.ywyogesh0.kafka.connect.github.schemas;
 
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.data.SchemaBuilder;

@@ -1,8 +1,10 @@
-package com.ywyogesh0.kafka.connect.github;
+package com.ywyogesh0.kafka.connect.github.tasks;
 
+import com.ywyogesh0.kafka.connect.github.versions.VersionUtil;
+import com.ywyogesh0.kafka.connect.github.clients.GitHubRepoAPIHttpClient;
+import com.ywyogesh0.kafka.connect.github.connectors.GitHubRepoSourceConnectorConfig;
 import com.ywyogesh0.kafka.connect.github.models.Owner;
 import com.ywyogesh0.kafka.connect.github.models.Repo;
-import com.ywyogesh0.kafka.connect.github.utils.DateUtils;
 import org.apache.kafka.connect.data.Struct;
 import org.apache.kafka.connect.source.SourceRecord;
 import org.apache.kafka.connect.source.SourceTask;
@@ -17,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.ywyogesh0.kafka.connect.github.GitHubRepoSourceSchemas.*;
+import static com.ywyogesh0.kafka.connect.github.schemas.GitHubRepoSourceSchemas.*;
 
 
 public class GitHubRepoSourceTask extends SourceTask {
@@ -40,7 +42,7 @@ public class GitHubRepoSourceTask extends SourceTask {
     @Override
     public void start(Map<String, String> map) {
 
-        // Required to start your task. This could be open a connection to a database etc...
+        // Required to start your tasks. This could be open a connection to a database etc...
         config = new GitHubRepoSourceConnectorConfig(map);
         initializeLastVariables();
         gitHubHttpAPIClient = new GitHubRepoAPIHttpClient(config);

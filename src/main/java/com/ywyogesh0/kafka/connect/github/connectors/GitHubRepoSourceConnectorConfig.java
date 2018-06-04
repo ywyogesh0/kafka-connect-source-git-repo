@@ -1,4 +1,4 @@
-package com.ywyogesh0.kafka.connect.github;
+package com.ywyogesh0.kafka.connect.github.connectors;
 
 import com.ywyogesh0.kafka.connect.github.validators.BatchSizeValidator;
 import org.apache.kafka.common.config.AbstractConfig;

@@ -1,4 +1,4 @@
-package com.ywyogesh0.kafka.connect.github;
+package com.ywyogesh0.kafka.connect.github.versions;
 
 public class VersionUtil {
 
